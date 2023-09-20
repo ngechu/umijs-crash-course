@@ -6,5 +6,6 @@ export default defineConfig({
     { path: "/docs", component: "docs" },
   ],
   npmClient: 'yarn',
+  define: { BASE_URL: "https://jsonplaceholder.typicode.com/" }
 
 });
