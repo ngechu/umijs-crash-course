@@ -12,14 +12,28 @@ interface Product {
 		count: number;
 	};
 }
+
+
+function calculateCost(products: Product[]) {
+	const total = products.reduce((prev, curr) => {
+		return prev + curr.price
+	}, 0)
+	return total
+}
+
 function cart() {
 	const [products, setProducts] = useState<Product[]>([]);
+	const [viewCart, setViewCart] = useState(false)
+
+
 
 	return {
 		numberOfProducts: products.length,
 		setProducts,
-		products
-
+		products,
+		viewCart,
+		setViewCart,
+		cartTotal: calculateCost(products)
 	}
 }
 
