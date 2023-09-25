@@ -1,26 +1,30 @@
-import { useEffect } from "react";
-import yayJpg from "../assets/yay.jpg";
+import { useQuery } from "react-query";
+import { getAllProducts } from "@/services/products";
+import ProductCard from "@/components/productCard";
 
-export async function getAllTodos() {
-  const response = await fetch(`${BASE_URL}/todos`);
-  const data = await response.json();
-  console.log("XXXXXXXXXXXXXXXXXXXXXXXXXXXX", data);
-  return;
-}
 export default function HomePage() {
-  useEffect(() => {
-    getAllTodos();
-  }, []);
+  const { data, isLoading } = useQuery(["products"], getAllProducts);
+  if (isLoading) {
+    return "....................loading";
+  }
+  console.log(data);
   return (
     <div>
-      <h2>Yay! Welcome to umi!</h2>
-      <h2>{BASE_URL}</h2>
-      <p>
-        <img src={yayJpg} width="388" />
-      </p>
-      <p>
-        To get started, edit <code>pages/index.tsx</code> and save to reload.
-      </p>
+      <div>
+        <h2 className="text-2xl font-bold tracking-tight">
+          Get the latest Merch
+        </h2>
+
+        <div className="mt-6 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8">
+          {data.map((e: any) => {
+            return (
+              <div key={e.id}>
+                <ProductCard product={e} />
+              </div>
+            );
+          })}
+        </div>
+      </div>
     </div>
   );
 }
