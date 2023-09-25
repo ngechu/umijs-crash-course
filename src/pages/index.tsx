@@ -1,11 +1,11 @@
-import { useQuery } from "react-query";
-import { getAllProducts } from "@/services/products";
-import ProductCard from "@/components/productCard";
+import { useQuery } from 'react-query';
+import { getAllProducts } from '@/services/products';
+import ProductCard from '@/components/productCard';
 
 export default function HomePage() {
-  const { data, isLoading } = useQuery(["products"], getAllProducts);
+  const { data, isLoading } = useQuery(['products'], getAllProducts);
   if (isLoading) {
-    return "....................loading";
+    return '....................loading';
   }
   console.log(data);
   return (
@@ -16,7 +16,7 @@ export default function HomePage() {
         </h2>
 
         <div className="mt-6 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8">
-          {data.map((e: any) => {
+          {data?.map((e: any) => {
             return (
               <div key={e.id}>
                 <ProductCard product={e} />
